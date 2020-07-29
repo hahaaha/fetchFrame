@@ -21,7 +21,7 @@ let b = new fetchFrame()
 b.req({
     url: "http://localhost:5000/users/login",
     method: "post",
-    timeout: 1000,
+    timeout: 0,
     data: {
         userName: "admin1",
         password: "admin"

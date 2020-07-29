@@ -1,3 +1,6 @@
+import mergeConfig from './util/mergeConfig'
+import defaultConfig from './config'
+
 let fetchFrame = function () {
     this.controller = new AbortController()
     this.signal = this.controller.signal
@@ -14,29 +17,35 @@ let fetchFrame = function () {
 
 
 fetchFrame.prototype.req = function (data) {
+    let config = mergeConfig(defaultConfig, data)
     let params = { signal: this.signal }
     let url = ""
+    let promiseArray = []
     let headers = new Headers()
     headers.append('Content-Type', 'application/json')
 
-    if (data.url) {
-        url = data.url
+    if (config.url) {
+        url = config.url
     }
 
-    if (data.data) {
-        params.body = JSON.stringify(data.data)
+    if (config.data) {
+        params.body = JSON.stringify(config.data)
     }
 
-    if (data.method) {
-        params.method = data.method.toUpperCase()
+    if (config.method) {
+        params.method = config.method.toUpperCase()
+    }
+    if (config.timeout !== 0) {
+        promiseArray.push(this.timeoutPromise(config.timeout))
     }
 
     params.headers = headers
     console.log(params)
-    return Promise.race([this.timeoutPromise(data.timeout), fetch(url, params)])
+    promiseArray.push(fetch(url, params))
+    return Promise.race(promiseArray)
         .then((Response) => {
             console.log(Response)
-            if(Response.status === 504) {
+            if (Response.status === 504) {
                 throw "timeout"
             } else {
                 return Response.json()
