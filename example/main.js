@@ -1,4 +1,4 @@
-import fetchFrame from './index.js'
+import fetchFrame from '../dist/fetchFrame'
 
 let b = new fetchFrame()
 // b.req({
@@ -18,7 +18,7 @@ let b = new fetchFrame()
 //     console.log(res)
 // })
 
-b.req({
+b.request({
     url: "http://localhost:5000/users/login",
     method: "post",
     timeout: 0,

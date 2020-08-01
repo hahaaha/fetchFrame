@@ -3,8 +3,17 @@ const HmtlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
     devtool: 'inline-source-map',
+    resolve: {
+        extensions: [".ts",".tsx",".js",".json"]
+    },
     module: {
         rules: [
+            {
+                test: /\.tsx?$/,
+                use: [
+                    'ts-loader'
+                ]
+            },
             {
                 test: /\.css$/,
                 use: [

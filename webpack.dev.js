@@ -15,7 +15,7 @@ module.exports = merge(common, {
             inject: 'head'
         })
     ],
-    entry: './src/main.js',
+    entry: './example/main.js',
     devtool: 'inline-source-map',
     devServer: {
         contentBase: './',
