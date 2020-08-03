@@ -3,7 +3,8 @@ const config = {
     headers: new Headers({
         'Content-Type': 'application/json'
     }),
-    timeout: 1000
+    timeout: 1000,
+    responseType: "json"
 }
 
 export default config

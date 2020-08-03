@@ -42,7 +42,11 @@ export default function Fetch(config: FetchConfig) {
             if (Response.status === 504) {
                 throw "timeout"
             } else {
-                return Response.json()
+                return resposeByType(Response,config.responseType)
             }
         })
+}
+
+function resposeByType(response,type) {
+    return response[type]()
 }
