@@ -4,5 +4,8 @@ export interface FetchConfig {
     data?: object,
     method?: Method,
     headers?: any,
-    timeout?: number 
+    timeout?: number,
+    responseType?: String
 }
+
+export type responseType = 'josn' | 'text'
