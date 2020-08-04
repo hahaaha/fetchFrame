@@ -15,8 +15,6 @@ export default function Fetch(config: FetchConfig) {
     let params:any = { signal }
     let url: any = ""
     let promiseArray = []
-    let headers = new Headers()
-    headers.append('Content-Type', 'application/json')
 
     if (config.url) {
         url = config.url
@@ -33,7 +31,7 @@ export default function Fetch(config: FetchConfig) {
         promiseArray.push(timeoutPromise(config.timeout))
     }
 
-    params.headers = headers
+    params.headers = config.headers
     console.log(params)
     promiseArray.push(fetch(url, params))
     return Promise.race(promiseArray)
