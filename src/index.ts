@@ -4,18 +4,8 @@ import Fetch from './core/Fetch'
 import { FetchConfig } from './types'
 import processHeaders from './helper/headers'
 
-let fetchFrame = function () {
-    this.controller = new AbortController()
-    this.signal = this.controller.signal
-    this.timeoutPromise = (timeout) => {
-        return new Promise((resolve, reject) => {
-            setTimeout(() => {
-                resolve(new Response("timeout", { status: 504, statusText: "timeout " }))
-                this.controller.abort();
-            }, timeout)
-        })
-    }
-}
+let fetchFrame = function () {}
+
 function transformHeaders(config: FetchConfig) {
     let { headers = {}, data } = config
     return processHeaders(headers, data)
