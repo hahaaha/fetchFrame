@@ -10,7 +10,21 @@
     "build": "webpack --config webpack.prod.js"
   },
   "jest": {
+    "preset": "ts-jest",
     "testEnvironment": "jsdom",
+    "transform": {
+      ".*\\.(js|ts)$": "ts-jest"
+    },
+    "transformIgnorePatterns": [
+      "node_modules/"
+    ],
+    "globals": {
+      "ts-jest": {
+        "tsConfig": {
+          "allowJs": true
+        }
+      }
+    },
     "coverageThreshold": {
       "global": {
         "functions": 95,
@@ -25,6 +39,8 @@
   "devDependencies": {
     "@babel/core": "^7.10.5",
     "@babel/preset-env": "^7.11.0",
+    "@babel/preset-typescript": "^7.10.4",
+    "@types/jest": "^26.0.8",
     "babel-jest": "^26.2.2",
     "babel-loader": "^8.1.0",
     "clean-webpack-plugin": "^3.0.0",
@@ -32,6 +48,7 @@
     "jasmine-ajax": "^4.0.0",
     "jasmine-core": "^3.6.0",
     "jest": "^26.2.1",
+    "ts-jest": "^26.1.4",
     "ts-loader": "^8.0.1",
     "typescript": "^3.9.7",
     "webpack": "^4.44.0",
