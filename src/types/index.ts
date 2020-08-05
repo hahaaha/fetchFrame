@@ -3,9 +3,10 @@ export interface FetchConfig {
     url?: string,
     data?: object,
     method?: Method,
+    params?: any,
     headers?: any,
     timeout?: number,
     responseType?: String
 }
 
-export type responseType = 'josn' | 'text'|'formData' | 'blob' | 'arrayBuffer'
+export type responseType = 'josn' | 'text' | 'formData' | 'blob' | 'arrayBuffer'

@@ -1,4 +1,4 @@
-import fetchFrame from '../dist/fetchFrame'
+import fetchFrame from '../src/index'
 
 let b = new fetchFrame()
 // b.req({

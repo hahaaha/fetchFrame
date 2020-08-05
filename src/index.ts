@@ -3,11 +3,13 @@ import defaultConfig from './config'
 import Fetch from './core/Fetch'
 import { FetchConfig } from './types'
 import processHeaders from './helper/headers'
+import { buildURL } from './helper/url'
 
-let fetchFrame = function () {}
+let fetchFrame = function () { }
 
 function transformHeaders(config: FetchConfig) {
     let { headers = {}, data } = config
+    console.log(buildURL(config.url,{a:1,b:1}))
     return processHeaders(headers, data)
 }
 
