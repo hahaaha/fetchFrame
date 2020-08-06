@@ -9,13 +9,17 @@ let fetchFrame = function () { }
 
 function transformHeaders(config: FetchConfig) {
     let { headers = {}, data } = config
-    console.log(buildURL(config.url,{a:1,b:1}))
     return processHeaders(headers, data)
+}
+
+function transformUrl(config: FetchConfig) {
+    let { url, params } = config
+    return buildURL(url, params)
 }
 
 function processConfig(config: FetchConfig) {
     config.headers = transformHeaders(config)
-
+    config.url = transformUrl(config)
 }
 
 fetchFrame.prototype.request = function (data) {
