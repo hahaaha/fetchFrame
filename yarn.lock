@@ -1232,6 +1232,11 @@
     "@types/istanbul-lib-coverage" "*"
     "@types/istanbul-lib-report" "*"
 
+"@types/jasmine-ajax@^3.3.1":
+  version "3.3.1"
+  resolved "https://r.cnpmjs.org/@types/jasmine-ajax/download/@types/jasmine-ajax-3.3.1.tgz#69bc09babecc600cd80ba7e23f61937b0eea735c"
+  integrity sha1-abwJur7MYAzYC6fiP2GTew7qc1w=
+
 "@types/jest@^26.0.8":
   version "26.0.8"
   resolved "https://registry.npm.taobao.org/@types/jest/download/@types/jest-26.0.8.tgz?cache=0&sync_timestamp=1596171173600&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fjest%2Fdownload%2F%40types%2Fjest-26.0.8.tgz#f5c5559cf25911ce227f7ce30f1f160f24966369"
@@ -7375,6 +7380,11 @@ whatwg-encoding@^1.0.5:
   integrity sha1-WrrPd3wyFmpR0IXWtPPn0nET3bA=
   dependencies:
     iconv-lite "0.4.24"
+
+whatwg-fetch@^3.3.1:
+  version "3.3.1"
+  resolved "https://r.cnpmjs.org/whatwg-fetch/download/whatwg-fetch-3.3.1.tgz#6c1acf37dec176b0fd6bc9a74b616bec2f612935"
+  integrity sha1-bBrPN97BdrD9a8mnS2Fr7C9hKTU=
 
 whatwg-mimetype@^2.3.0:
   version "2.3.0"
