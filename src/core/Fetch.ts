@@ -2,7 +2,7 @@ import { FetchConfig } from '../types/index'
 const controller = new AbortController()
 const signal = controller.signal
 const timeoutPromise = (timeout) => {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
         setTimeout(() => {
             resolve(new Response("timeout", { status: 504, statusText: "timeout " }))
             controller.abort();
@@ -11,7 +11,6 @@ const timeoutPromise = (timeout) => {
 }
 
 export default function Fetch(config: FetchConfig) {
-    // let config = mergeConfig(defaultConfig, data)
     let params:any = { signal }
     let url: any = ""
     let promiseArray = []
