@@ -12,16 +12,7 @@ const timeoutPromise = (timeout) => {
 
 export default function Fetch(config: FetchConfig) {
     let params:any = { signal }
-    let url: any = ""
     let promiseArray = []
-
-    if (config.url) {
-        url = config.url
-    }
-
-    if (config.data) {
-        params.body = JSON.stringify(config.data)
-    }
 
     if (config.method) {
         params.method = config.method.toUpperCase()
@@ -31,8 +22,8 @@ export default function Fetch(config: FetchConfig) {
     }
 
     params.headers = config.headers
-    console.log(params)
-    promiseArray.push(fetch(url, params))
+
+    promiseArray.push(fetch(config.url, params))
     return Promise.race(promiseArray)
         .then((Response) => {
             console.log(Response)

@@ -12,15 +12,12 @@ function normalizeHeaderName(headers,normalizedName) {
       })
 }
 
-function processHeaders(headers: any, data: any) {
+export function processHeaders(headers: any, data: any) {
     normalizeHeaderName(headers,"Content-Type")
     if (isPlainObject(data)) {
         if (headers && !headers['Content-Type']) {
             headers['Content-Type'] = 'application/json;charset=utf-8'
         }
     }
-    console.log(headers)
     return headers
 }
-
-export default processHeaders
