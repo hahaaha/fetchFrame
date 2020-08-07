@@ -31,6 +31,26 @@ describe("url", () => {
                 })
             ).toBe("/foo?a=1")
         })
+
+        test("not support null and undefined params", () => {
+            expect(
+                buildURL("/foo", {
+                    a: null,
+                    b: undefined
+                })
+            ).toBe("/foo")
+        })
+
+        test("should support object params", () => {
+            expect(
+                buildURL("/foo", {
+                    a: {
+                        a: "cc",
+                        b: "bb"
+                    }
+                })
+            ).toBe(`/foo?a=` + encodeURI('{"a":"cc","b":"bb"}'))
+        })
     })
 
 })
