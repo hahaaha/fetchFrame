@@ -10,10 +10,10 @@ function encode(val: string) {
         replace(/%5D/gi, ']');
 }
 
-function delHash(url:string) {
+function delHash(url: string) {
     let index = url.indexOf("#")
-    if(index !== -1) {
-        url = url.slice(0,index)
+    if (index !== -1) {
+        url = url.slice(0, index)
     }
 
     return url
@@ -49,5 +49,5 @@ export function buildURL(url: string, params?: any) {
         urlParams = `${urlParams}${urlParams ? "&" : ""}${encode(key)}=${encode(val)}`
     }
 
-    return `${url}?${urlParams}`
+    return `${url}${urlParams ? "?" : ""}${urlParams}`
 }
