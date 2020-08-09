@@ -1,13 +1,33 @@
 import fetchFrame from '../src/index'
 import { getAjaxRequest } from './helper'
+const http = require('http')
+let server = http.createServer()
 
 describe('requests', () => {
     beforeEach(() => {
         jasmine.Ajax.install()
+        server.on('request', (req, res) => {
+            // console.log('请求路径是：' + req.url)
+            // console.log('请求我的客户端地址是：' + req.socket.remoteAddress, req.socket.remotePort)
+
+            let url = req.url
+
+            if (url === '/') {
+                setTimeout(() => {
+                    res.end('index page in timeout')
+                }, 5000)
+
+            }
+        })
+
+        server.listen(4000, function () {
+            // console.log('服务器启动成功，地址localhost:4000')
+        })
     })
 
     afterEach(() => {
         jasmine.Ajax.uninstall()
+        server.close()
     })
 
     test('should treat single string arg as url', () => {
@@ -24,14 +44,14 @@ describe('requests', () => {
 
     test('test request post request', (done) => {
         let c = new fetchFrame()
+        let response
         c.request({
             url: "/foo",
             method: "post",
             timeout: 0,
             responseType: "text"
         }).then(res => {
-            // console.log(res)
-            // expect(res.config.method).toBe('post')
+            response = res
             done()
         })
 
@@ -39,32 +59,20 @@ describe('requests', () => {
             expect(request.url).toBe('/foo')
             expect(request.method).toBe('POST')
             request.respondWith({
-                status: 200
+                status: 200,
+                statusText: 'OK',
+                responseText: '{"a":1}'
             })
-        })
-    })
 
-    test('test request set timeout', (done) => {
-        let c = new fetchFrame()
-        let err = ""
-        c.request({
-            url: "/foo",
-            method: "post",
-            timeout: 1000,
-            responseType: "text"
-        }).then(res => {
-            // console.log(res)
-            // expect(res.config.method).toBe('post')
             setTimeout(() => {
+                expect(response.data).toEqual({ a: 1 })
                 done()
-            }, 2000)
-        }).catch((e) => {
-            err = e
-        })
-
-        getAjaxRequest().then(request => {
-            console.log(err)
+            }, 100)
         })
     })
+
+    // test('test request set timeout', () => {
+
+    // })
 
 })

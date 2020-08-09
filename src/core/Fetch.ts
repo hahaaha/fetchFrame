@@ -11,17 +11,16 @@ const timeoutPromise = (timeout) => {
 }
 
 export default function Fetch(config: FetchConfig) {
-    let params:any = { signal }
+    let params: any = { signal }
     let promiseArray = []
 
-    if (config.method) {
-        params.method = config.method.toUpperCase()
-    }
+    params.method = config.method
+    params.body = config.data
+    params.headers = config.headers
+
     if (config.timeout !== 0) {
         promiseArray.push(timeoutPromise(config.timeout))
-    }
-
-    params.headers = config.headers
+    } 
 
     promiseArray.push(fetch(config.url, params))
     return Promise.race(promiseArray)
@@ -30,11 +29,11 @@ export default function Fetch(config: FetchConfig) {
             if (Response.status === 504) {
                 throw "timeout"
             } else {
-                return resposeByType(Response,config.responseType)
+                return resposeByType(Response, config.responseType)
             }
         })
 }
 
-function resposeByType(response,type) {
+function resposeByType(response, type) {
     return response[type]()
 }

@@ -5,6 +5,7 @@ import { FetchConfig } from './types'
 import { processHeaders } from './helper/headers'
 import { buildURL } from './helper/url'
 import { transformrequest } from './helper/data'
+import { processMethod } from './helper/method'
 
 let fetchFrame = function () { }
 
@@ -22,13 +23,18 @@ function transformRequestData(config: FetchConfig) {
     return transformrequest(config.data)
 }
 
+function transfromMethod(config: FetchConfig) {
+    return processMethod(config.method)
+}
+
 function processConfig(config: FetchConfig) {
     config.headers = transformHeaders(config)
     config.url = transformUrl(config)
     config.data = transformRequestData(config)
+    config.method = transfromMethod(config)
 }
 
-fetchFrame.prototype.request = function (data) {
+fetchFrame.prototype.request =function (data) {
     let config = mergeConfig(defaultConfig, data)
     processConfig(config)
     return Fetch(config)
