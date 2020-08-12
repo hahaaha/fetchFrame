@@ -1,39 +1,36 @@
-import { FetchConfig } from '../types/index'
-const controller = new AbortController()
-const signal = controller.signal
-const timeoutPromise = (timeout) => {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            resolve(new Response("timeout", { status: 504, statusText: "timeout " }))
-            controller.abort();
-        }, timeout)
-    })
+import { request } from './request'
+import { FetchConfig, Method } from '../types'
+import mergeConfig from '../util/mergeConfig'
+
+export default function Fetch() { }
+
+Fetch.prototype.request = request
+
+Fetch.prototype.get = function (url: string, config: FetchConfig) {
+    return _requestMethodWithoutData("get", url, config)
 }
 
-export default function Fetch(config: FetchConfig) {
-    let params: any = { signal }
-    let promiseArray = []
-
-    params.method = config.method
-    params.body = config.data
-    params.headers = config.headers
-
-    if (config.timeout !== 0) {
-        promiseArray.push(timeoutPromise(config.timeout))
-    } 
-
-    promiseArray.push(fetch(config.url, params))
-    return Promise.race(promiseArray)
-        .then((Response) => {
-            console.log(Response)
-            if (Response.status === 504) {
-                throw "timeout"
-            } else {
-                return resposeByType(Response, config.responseType)
-            }
-        })
+Fetch.prototype.delete = function (url: string, config: FetchConfig) {
+    return _requestMethodWithoutData("delete", url, config)
 }
 
-function resposeByType(response, type) {
-    return response[type]()
+Fetch.prototype.post = function (url: string, config: FetchConfig, data: any) {
+    return _requestMethodWithData("post", url, config, data)
+}
+
+Fetch.prototype.patch = function (url: string, config: FetchConfig, data: any) {
+    return _requestMethodWithData("patch", url, config, data)
+}
+
+Fetch.prototype.put = function (url: string, config: FetchConfig, data: any) {
+    return _requestMethodWithData("patch", url, config, data)
+}
+
+
+function _requestMethodWithoutData(method: Method, url: string, config?: FetchConfig) {
+    return request(mergeConfig(config || {}, { url, method }))
+}
+
+function _requestMethodWithData(method: Method, url: string, config?: FetchConfig, data?: any) {
+    return request(mergeConfig(config || {}, { url, method, data }))
 }

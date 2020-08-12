@@ -1,6 +1,6 @@
 const config = {
     method: "get",
-    timeout: 1000,
+    timeout: 0,
     responseType: "json"
 }
 
