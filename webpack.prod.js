@@ -10,7 +10,8 @@ module.exports = merge(common, {
         filename: 'fetchFrame.js',
         path: path.resolve(__dirname, 'dist'),
         library: "fetchFrame",
-        libraryTarget: "umd"
+        libraryTarget: "umd",
+        libraryExport: 'default'
     },
     plugins: [
         new CleanWebpackPlugin()
