@@ -19,7 +19,6 @@ export default function core(config: FetchConfig) {
     promiseArray.push(fetch(config.url, params))
     return Promise.race(promiseArray)
         .then((Response) => {
-            console.log(Response)
             if (Response.ok) {
                 return resposeByType(Response, config.responseType)
             } else {
