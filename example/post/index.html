@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../../dist/fetchFrame.js"></script>
+</head>
+
+<body>
+    <h1>post例子</h1>
+    <h1 id="content"></h1>
+    <script>
+        fetchFrame({
+            url: "http://localhost:3000",
+            method: "post",
+            data: {
+                name: "test"
+            }
+        }).then((res) => {
+            console.log(res)
+            let content = document.getElementById("content")
+            content.innerText = JSON.stringify(res)
+        }).catch(err => {
+            console.log(err)
+        })
+    </script>
+</body>
+
+</html>
